@@ -28,7 +28,7 @@ var keys = Object.keys(localStorage)
 let i = keys.length
 
 keys.forEach(function (key){
-    if (key.match(/userDetails/g)) {    
+    if (key.match(/user/g)) {    
         stringifiedDetailsOfPeople = localStorage.getItem(key);
         console.log("stringifiedDetailsOfPeople", stringifiedDetailsOfPeople);
         detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
@@ -40,8 +40,34 @@ keys.forEach(function (key){
 function addNewElement(element){
     var ul = document.getElementById("users");
     var li = document.createElement('li')
-    li.appendChild(document.createTextNode("name"+element.name+" email:",element.email))
-    var delete  = document.createElement('button') 
+    console.log(element.email)
+    li.appendChild(document.createTextNode("name: "+element.name+" email:"+element.email))
+    var a1 = document.createElement("input");
+    a1.id = "del";
+    a1.type = "button";
+    a1.value = "Edit";
+    a1.addEventListener("click", function() {
+        console.log(object);
+        document.getElementById("name").value = object.name;
+        document.getElementById("email").value = object.emailId;
+        li.remove();
+    });
+        a1.className = "edit";
+        a1.style.border = "2px solid green";
+        console.log(a1);
+        li.appendChild(a1);
+        var a = document.createElement("input");
+        a.type = "button";
+        a.value = "delete";
+        a.addEventListener("click", function() {
+            localStorage.removeItem("userDetails" + object.emailId);
+            li.remove();
+        });
+        a.className = "delete";
+        a.style.border = "2px solid red";
+        console.log(a);
+        li.appendChild(a);
+    ul.appendChild(li)
 }
 
 
