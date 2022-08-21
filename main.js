@@ -41,7 +41,7 @@ function addNewElement(element){
     var ul = document.getElementById("users");
     var li = document.createElement('li')
     li.appendChild(document.createTextNode("name"+element.name+" email:",element.email))
-    
+    var delete  = document.createElement('button') 
 }
 
 
