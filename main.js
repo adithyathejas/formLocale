@@ -3,12 +3,16 @@ var username = document.getElementById("name")
 const email = document.getElementById("email")
 
 form.addEventListener("submit",onSubmit);
+myObj = {
+    name : username.value,
+    email: email.value
+}
 
 function onSubmit(e)
 {
-    console.log("aaaa",username.value)
-    localStorage.setItem("name",username.value)
-    localStorage.setItem("email",email.value)
+   
+    
+    localStorage.setItem("user",myObj)
 
 }
 
