@@ -47,9 +47,8 @@ function addNewElement(element){
     a1.type = "button";
     a1.value = "Edit";
     a1.addEventListener("click", function() {
-        console.log(object);
-        document.getElementById("name").value = object.name;
-        document.getElementById("email").value = object.emailId;
+        document.getElementById("name").value = element.name;
+        document.getElementById("email").value = element.email;
         li.remove();
     });
         a1.className = "edit";
@@ -60,12 +59,15 @@ function addNewElement(element){
         a.type = "button";
         a.value = "delete";
         a.addEventListener("click", function() {
-            localStorage.removeItem("userDetails" + object.emailId);
+            localStorage.removeItem("userDetails" + element.email);
             li.remove();
         });
         a.className = "delete";
         a.style.border = "2px solid red";
         console.log(a);
+        if(localStorage.getItem("user"+element.email )!== null ){
+            li.remove();
+        }
         li.appendChild(a);
     ul.appendChild(li)
 }
