@@ -3,7 +3,6 @@ var username = document.getElementById("name")
 const email = document.getElementById("email")
 
 form.addEventListener("submit",onSubmit);
-window.addEventListener("beforeunload", handleBeforeUnload);
 
 
 
@@ -20,19 +19,33 @@ function onSubmit(e)
 
     var myObj_serial = JSON.stringify(myObj);
 
-    localStorage.setItem("user",myObj_serial);
+    localStorage.setItem("user"+myObj.name,myObj_serial);
+    addNewElement(myObj)
 
-    var myObj_deserial = JSON.parse(myObj_serial); 
-    alert(myObj_deserial.name,myObj_deserial.email)
+}
+
+var keys = Object.keys(localStorage)
+let i = keys.length
+
+keys.forEach(function (key){
+    if (key.match(/userDetails/g)) {    
+        stringifiedDetailsOfPeople = localStorage.getItem(key);
+        console.log("stringifiedDetailsOfPeople", stringifiedDetailsOfPeople);
+        detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
+        console.log("details", detailsOfPeople);
+        addNewElement(detailsOfPeople);
+      }
+})
+
+function addNewElement(element){
+    var ul = document.getElementById("users");
+    var li = document.createElement('li')
+    li.appendChild(document.createTextNode("name"+element.name+" email:",element.email))
+    
 }
 
 
-function handleBeforeUnload(e){
-    e.preventDefault();
-    const message =
-    "Are you sure you want to leave? All provided data will be lost.";
-  e.returnValue = message;
-  return message;
-}
+
+
 
 
