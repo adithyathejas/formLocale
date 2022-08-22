@@ -30,18 +30,24 @@ let i = keys.length
 keys.forEach(function (key){
     if (key.match(/user/g)) {    
         stringifiedDetailsOfPeople = localStorage.getItem(key);
-        console.log("stringifiedDetailsOfPeople", stringifiedDetailsOfPeople);
+        // console.log("stringifiedDetailsOfPeople", stringifiedDetailsOfPeople);
         detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
-        console.log("details", detailsOfPeople);
+        // console.log("details", detailsOfPeople);
         addNewElement(detailsOfPeople);
       }
 })
 
 function addNewElement(element){
+
+    var dl = document.getElementById(element.email)
+    if( dl != null ){
+        dl.remove()
+    }
     var ul = document.getElementById("users");
     var li = document.createElement('li')
-    console.log(element.email)
-    li.appendChild(document.createTextNode("name: "+element.name+" email:"+element.email))
+    li.id = element.email
+    // console.log(element.email)
+    li.appendChild(document.createTextNode("name: "+element.name+" email: "+element.email))
     var a1 = document.createElement("input");
     a1.id = "del";
     a1.type = "button";
@@ -53,23 +59,21 @@ function addNewElement(element){
     });
         a1.className = "edit";
         a1.style.border = "2px solid green";
-        console.log(a1);
+        // console.log(a1);
         li.appendChild(a1);
         var a = document.createElement("input");
         a.type = "button";
         a.value = "delete";
         a.addEventListener("click", function() {
-            localStorage.removeItem("userDetails" + element.email);
+            localStorage.removeItem("user" + element.email);
             li.remove();
         });
         a.className = "delete";
         a.style.border = "2px solid red";
-        console.log(a);
-        if(localStorage.getItem("user"+element.email )!== null ){
-            li.remove();
-        }
+        // console.log(a)
         li.appendChild(a);
     ul.appendChild(li)
+
 }
 
 
