@@ -38,16 +38,18 @@ keys.forEach(function (key){
 })
 
 function addNewElement(element){
-
+    var flag = false 
     var dl = document.getElementById(element.email)
     if( dl != null ){
         dl.remove()
+        flag = true
+
     }
     var ul = document.getElementById("users");
     var li = document.createElement('li')
     li.id = element.email
     // console.log(element.email)
-    li.appendChild(document.createTextNode("name: "+element.name+" email: "+element.email))
+    li.appendChild(document.createTextNode("name: "+element.name +" email: "+element.email+"      "))
     var a1 = document.createElement("input");
     a1.id = "del";
     a1.type = "button";
@@ -61,6 +63,10 @@ function addNewElement(element){
         a1.style.border = "2px solid green";
         // console.log(a1);
         li.appendChild(a1);
+        if(flag === true){
+            li.style.backgroundColor = "red"
+        }
+        
         var a = document.createElement("input");
         a.type = "button";
         a.value = "delete";
