@@ -1,89 +1,21 @@
-const form = document.getElementById("my-form")
-var username = document.getElementById("name")
-const email = document.getElementById("email")
+// let multiply = function(x,y){
+//     console.log(x*y);
+// }
 
-form.addEventListener("submit",onSubmit);
+// let multiplyByTwo = multiply.bind(this,2)
+// let multiplyByThree = multiply.bind(this,3)
+// multiplyByTwo(5)
+// multiplyByThree(5)
 
-
-
-
-
-function onSubmit(e)
-{
-    e.preventDefault()
-   
-    myObj = {
-        name : username.value,
-        email: email.value
+let multiply =function(x){
+    return function(y){
+       console.log(x*y)
     }
-
-    var myObj_serial = JSON.stringify(myObj);
-
-    localStorage.setItem("user"+myObj.name,myObj_serial);
-    addNewElement(myObj)
-
 }
 
-var keys = Object.keys(localStorage)
-let i = keys.length
+let  multiplyByTwo = multiply(2)
+multiplyByTwo(5)
 
-keys.forEach(function (key){
-    if (key.match(/user/g)) {    
-        stringifiedDetailsOfPeople = localStorage.getItem(key);
-        // console.log("stringifiedDetailsOfPeople", stringifiedDetailsOfPeople);
-        detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
-        // console.log("details", detailsOfPeople);
-        addNewElement(detailsOfPeople);
-      }
-})
-
-function addNewElement(element){
-    var flag = false 
-    var dl = document.getElementById(element.email)
-    if( dl != null ){
-        dl.remove()
-        flag = true
-
-    }
-    var ul = document.getElementById("users");
-    var li = document.createElement('li')
-    li.id = element.email
-    // console.log(element.email)
-    li.appendChild(document.createTextNode("name: "+element.name +" email: "+element.email+"      "))
-    var a1 = document.createElement("input");
-    a1.id = "del";
-    a1.type = "button";
-    a1.value = "Edit";
-    a1.addEventListener("click", function() {
-        document.getElementById("name").value = element.name;
-        document.getElementById("email").value = element.email;
-        li.remove();
-    });
-        a1.className = "edit";
-        a1.style.border = "2px solid green";
-        // console.log(a1);
-        li.appendChild(a1);
-        if(flag === true){
-            li.style.backgroundColor = "red"
-        }
-        
-        var a = document.createElement("input");
-        a.type = "button";
-        a.value = "delete";
-        a.addEventListener("click", function() {
-            localStorage.removeItem("user" + element.email);
-            li.remove();
-        });
-        a.className = "delete";
-        a.style.border = "2px solid red";
-        // console.log(a)
-        li.appendChild(a);
-    ul.appendChild(li)
-
-}
-
-
-
-
-
+let multiplyByThree = multiply(3)
+multiplyByThree(5)
 
